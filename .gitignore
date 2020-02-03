@@ -1,1 +1,4 @@
-.vagrant
+.vagrant/
+.private/
+*-join-command
+k8s.retry

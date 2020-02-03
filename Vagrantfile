@@ -5,12 +5,15 @@ MEM = 2048
 CPU = 2
 NODES_NUM = 2
 IP_BASE = "192.168.50."
+
 Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
+
     config.vm.provider "virtualbox" do |v|
         v.memory = MEM
         v.cpus = CPU
     end
+
     (1..MASTERS_NUM).each do |i|
         config.vm.define "k8s-m-#{i}" do |master|
             master.vm.box = IMAGE_NAME
@@ -35,6 +38,7 @@ Vagrant.configure("2") do |config|
             end
         end
     end
+
     (1..NODES_NUM).each do |j|
         config.vm.define "k8s-n-#{j}" do |node|
             node.vm.box = IMAGE_NAME
@@ -57,4 +61,4 @@ Vagrant.configure("2") do |config|
             end
         end
     end
-end
+end 
