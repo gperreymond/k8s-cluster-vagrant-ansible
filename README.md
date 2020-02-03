@@ -33,13 +33,15 @@ vagrant@127.0.0.1's password: vagrant
 ```sh
 # Install, only one time
 $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
-$ kubectl apply -f kubernetes-dashboard.yaml
+$ kubectl apply -f kubernetes/dashboard/install.yaml
 
 # Run the dashboard
-$ ./run-dashboard.sh
+$ ./kubernetes/dashboard/run.sh
 ```
+
 
 ## Copyrights
 
 * https://www.itwonderlab.com/ansible-kubernetes-vagrant-tutorial
+* https://www.itwonderlab.com/installing-istio-in-kubernetes-under-virtualbox
 * https://github.com/ITWonderLab/ansible-vbox-vagrant-kubernetes
