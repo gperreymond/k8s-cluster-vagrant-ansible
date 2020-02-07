@@ -44,6 +44,7 @@ $ ./kubernetes/dashboard/run.sh
 
 ```sh
 # Deploy
+$ kubectl apply -f kubernetes/traefik/rbac.yaml
 $ kubectl apply -f kubernetes/traefik/deploy.yaml
 ```
 
