@@ -15,12 +15,28 @@ spec:
   ports:
   - port: 80
     name: http
-  #- port: 443
-  #  name: https
+  - port: 443
+    name: https
   selector:
     app: traefik-ingress-lb
   externalIPs:
     - 192.168.50.11
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kube-system
+  name: traefik-console
+  labels:
+    app: traefik-console
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    name: webui
+  selector:
+    app: traefik-ingress-lb
 
 ---
 apiVersion: apps/v1
@@ -51,25 +67,28 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-        - containerPort: 8080
-        #- containerPort: 443
+        - containerPort: 443
         args:
         - --web
         - --kubernetes
         - --logLevel=DEBUG
 
 ---
-apiVersion: v1
-kind: Service
+apiVersion: extensions/v1beta1
+kind: Ingress
 metadata:
   namespace: kube-system
   name: traefik-console
-  labels:
-    app: traefik-console
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.frontend.passHostHeader: "true"
+    traefik.backend.loadbalancer.sticky: "true"
 spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    name: webui
-  selector:
-    app: traefik-ingress-lb
+  rules:
+  - host: traefik.docker.localhost
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: traefik-console
+          servicePort: 8080
