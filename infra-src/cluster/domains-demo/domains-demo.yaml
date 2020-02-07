@@ -1,0 +1,45 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: domains-demo
+  region: eu-west-1
+
+managedNodeGroups:
+  - name: ng-on-demand
+    instanceType: t2.xlarge
+    desiredCapacity: 3
+    minSize: 1
+    maxSize: 5
+    volumeSize: 150
+    labels:
+      role: worker
+      spot: "false"
+      env: demo
+      nodegroup: ng-on-demand
+    tags:
+      nodegroup-role: worker
+      spot: "false"
+      env: demo
+      nodegroup: ng-on-demand
+
+nodeGroups:
+  - name: ng-spot-instances
+    minSize: 3
+    maxSize: 10
+    labels:
+      role: worker
+      spot: "false"
+      env: demo
+      nodegroup: ng-spot-instances
+    tags:
+      nodegroup-role: worker
+      spot: "true"
+      env: demo
+      nodegroup: ng-spot-instances
+    instancesDistribution:
+      maxPrice: 0.04
+      instanceTypes: ["t2.medium", "t2.large"] # At least two instance types should be specified
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 50
+      spotInstancePools: 3
