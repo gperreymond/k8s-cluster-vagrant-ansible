@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kube-system
+  name: traefik-lb-svc
+  labels:
+    app: traefik-lb-svc
+spec:
+  # Ceci ("type: LoadBalancer") creerait un ELB automagiquement...
+  #type: LoadBalancer
+  # ... mais si on veux economiser et ne pas faire d'ELB, on utilise un "NodePort",
+  # qui vas squatter un port (dynamiquement choisi) externe de tout les nodes.
+  type: NodePort
+  ports:
+  - port: 80
+    name: http
+  #- port: 443
+  #  name: https
+  selector:
+    app: traefik-ingress-lb
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kube-system
+  name: traefik-ingress-lb
+  labels:
+    app: traefik-ingress-lb
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: traefik-ingress-lb
+  template:
+    metadata:
+      labels:
+        name: traefik-ingress-lb
+        app: traefik-ingress-lb
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly", "operator":"Exists"}]'
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: traefik:1.7
+        name: traefik-ingress-lb
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        - containerPort: 8080
+        #- containerPort: 443
+        args:
+        - --web
+        - --kubernetes
+        - --logLevel=DEBUG
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kube-system
+  name: traefik-console
+  labels:
+    app: traefik-console
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    name: webui
+  selector:
+    app: traefik-ingress-lb
