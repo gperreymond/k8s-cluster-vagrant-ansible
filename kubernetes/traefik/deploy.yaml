@@ -11,7 +11,7 @@ spec:
   #type: LoadBalancer
   # ... mais si on veux economiser et ne pas faire d'ELB, on utilise un "NodePort",
   # qui vas squatter un port (dynamiquement choisi) externe de tout les nodes.
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     name: http
@@ -19,6 +19,8 @@ spec:
   #  name: https
   selector:
     app: traefik-ingress-lb
+  externalIPs:
+    - 192.168.50.11
 
 ---
 apiVersion: apps/v1
