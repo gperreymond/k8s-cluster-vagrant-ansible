@@ -20,7 +20,7 @@ Un fichier gitlab.rb est présent en local si besoin de reconfé rapidement.
 Attention, ce fichier ne permet pas d'envoie de notification par email.
 
 Modifier les variables suivantes :
-external_url 'https://gitlab.lalalab.com'
+external_url 'https://gitlab.xxxxxx.com'
 Attention, cette variable va être changée à chaque reboot si vous avez
 bootstraper avec bitnami omnibus, il faut donc supprimer le fichier suivant :
 sudo rm /opt/bitnami/apps/gitlab/bnconfig
@@ -40,7 +40,7 @@ puis déplacer le fichier server.key dans /etc/gitlab/ssl
 
 Dans notre cas, n'ayant pas le certificat, je suis passé par letsencrypt:
 letsencrypt['enable'] = true
-letsencrypt['contact_emails'] = ['jeremyw@lalalab.com']
+letsencrypt['contact_emails'] = ['yyyyyy@xxxxxx.com']
 letsencrypt['auto_renew'] = true
 letsencrypt['auto_renew_hour'] = 0
 letsencrypt['auto_renew_minute'] = 0 
@@ -92,5 +92,5 @@ run: unicorn: (pid 520) 41s; run: log: (pid 519) 41s
 
 *** Configuration de l'application (admin pane sur gitlab directement) ***
 Whitelisted domains for sign-up
-Autoriser que les domaines lalalab.com et *.lalalab.com
+Autoriser que les domaines xxxxxx.com et *.xxxxxx.com
 Send confirmation email on sign-up

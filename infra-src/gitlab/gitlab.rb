@@ -10,7 +10,7 @@
 ##! URL on which GitLab will be reachable.
 ##! For more details on configuring external_url see:
 ##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
-external_url 'https://gitlab.lalalab.com'
+external_url 'https://gitlab.xxxxxx.com'
 
 ## Roles for multi-instance GitLab
 ##! The default is to have no roles enabled, which results in GitLab running as an all-in-one instance.
@@ -50,9 +50,9 @@ external_url 'https://gitlab.lalalab.com'
 
 ### Email Settings
 gitlab_rails['gitlab_email_enabled'] = true
-gitlab_rails['gitlab_email_from'] = 'gitlab@lalalab.com'
+gitlab_rails['gitlab_email_from'] = 'gitlab@xxxxxx.com'
 gitlab_rails['gitlab_email_display_name'] = 'Gitlab'
-gitlab_rails['gitlab_email_reply_to'] = 'noreply@lalalab.com'
+gitlab_rails['gitlab_email_reply_to'] = 'noreply@xxxxxx.com'
 gitlab_rails['gitlab_email_subject_suffix'] = '[GITLAB]'
 
 ### GitLab user privileges
@@ -318,8 +318,8 @@ gitlab_rails['omniauth_auto_link_ldap_user'] = false
 gitlab_rails['omniauth_providers'] = [
   {
     "name" => "google_oauth2",
-    "app_id" => "848666026234-667l5v3cht470oqg7a4doq22a5dbl3s7.apps.googleusercontent.com",
-    "app_secret" => "WEJDIRkbPc0-0MaDNgsncuml",
+    "app_id" => "xxxxxx",
+    "app_secret" => "xxxxxx",
     "args" => { "access_type" => "offline", "approval_prompt" => "" }
   }
 ]
@@ -509,7 +509,7 @@ gitlab_rails['omniauth_providers'] = [
 gitlab_rails['smtp_enable'] = true
 gitlab_rails['smtp_address'] = "smtp.gmail.com"
 gitlab_rails['smtp_port'] = 587
-gitlab_rails['smtp_user_name'] = "gitlab@lalalab.com"
+gitlab_rails['smtp_user_name'] = "gitlab@xxxxxx.com"
 gitlab_rails['smtp_password'] = "km}7>;2@4GnXEFTANVAZ"
 gitlab_rails['smtp_domain'] = "smtp.gmail.com"
 gitlab_rails['smtp_authentication'] = "login"
@@ -1642,7 +1642,7 @@ alertmanager['flags'] = {
 # Let's Encrypt integration
 ################################################################################
 letsencrypt['enable'] = true
-letsencrypt['contact_emails'] = ['jeremyw@lalalab.com'] # This should be an array of email addresses to add as contacts
+letsencrypt['contact_emails'] = ['yyyyyy@xxxxxx.com'] # This should be an array of email addresses to add as contacts
 # letsencrypt['group'] = 'root'
 # letsencrypt['key_size'] = 2048
 # letsencrypt['owner'] = 'root'
