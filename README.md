@@ -6,6 +6,8 @@
 * VirtualBox 6.1
 * Ansible 2.5.1
 
+* Ubuntu: sshpass
+
 ```sh
 # Helm 2
 curl -L https://git.io/get_helm.sh | bash
@@ -47,12 +49,10 @@ $ ./kubernetes/dashboard/run.sh
 
 ## Kubernets Nginx Ingress
 
-http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
+* http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
 
-```sh
-$ helm install --name nginx-ingress stable/nginx-ingress \
-               --set rbac.create=true \
-               --set controller.hostNetwork=true
+# Install Nginx Ingress
+$ helm install --name nginx-ingress --values kubernetes/nginx-ingress/values.yaml stable/nginx-ingress
 ```
 
 ## Copyrights

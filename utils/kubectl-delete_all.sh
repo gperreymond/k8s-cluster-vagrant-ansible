@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-#
+#!/bin/bash
 # kubectl-delete_all is a utility to delete all objects in the namespace.
 
 [[ -n "$DEBUG" ]] && set -x
