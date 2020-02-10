@@ -6,6 +6,11 @@
 * VirtualBox 6.1
 * Ansible 2.5.1
 
+```sh
+# Helm 2
+curl -L https://git.io/get_helm.sh | bash
+```
+
 ## Kubernetes Network Overview
 
 ![Overview](./ansible-kubernetes-vagrant-tutorial-Overview.png)
@@ -40,12 +45,14 @@ $ kubectl apply -f kubernetes/dashboard/deploy.yaml
 $ ./kubernetes/dashboard/run.sh
 ```
 
-## Kubernetes Traefik
+## Kubernets Nginx Ingress
+
+http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
 
 ```sh
-# Deploy
-$ kubectl apply -f kubernetes/traefik/rbac.yaml
-$ kubectl apply -f kubernetes/traefik/deploy.yaml
+$ helm install --name nginx-ingress stable/nginx-ingress \
+               --set rbac.create=true \
+               --set controller.hostNetwork=true
 ```
 
 ## Copyrights
