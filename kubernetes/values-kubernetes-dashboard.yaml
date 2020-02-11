@@ -18,7 +18,6 @@ annotations: {}
 labels: {}
 # kubernetes.io/name: "Kubernetes Dashboard"
 
-
 ## Enable possibility to skip login
 enableSkipLogin: false
 

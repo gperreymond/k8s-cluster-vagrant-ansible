@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
             master.vm.network "private_network", ip: "#{IP_BASE}#{i + 10}"
             master.vm.hostname = "k8s-m-#{i}"
             master.vm.provision "ansible" do |ansible|
-                ansible.playbook = "roles/k8s.yml"
+                ansible.playbook = "ansible/roles/k8s.yml"
                 #Generate Ansible Groups for inventory
                 ansible.groups = {
                     "k8s-master" => ["k8s-m-[1:#{MASTERS_NUM}]"],
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
             node.vm.network "private_network", ip: "#{IP_BASE}#{j + 10 + MASTERS_NUM}"
             node.vm.hostname = "k8s-n-#{j}"
             node.vm.provision "ansible" do |ansible|
-                ansible.playbook = "roles/k8s.yml"
+                ansible.playbook = "ansible/roles/k8s.yml"
                 #Generate Ansible Groups for inventory
                 ansible.groups = {
                     "k8s-master" => ["k8s-m-[1:#{MASTERS_NUM}]"],
@@ -61,4 +61,4 @@ Vagrant.configure("2") do |config|
             end
         end
     end
-end 
+end

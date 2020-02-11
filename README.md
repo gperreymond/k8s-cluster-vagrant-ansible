@@ -1,62 +1,71 @@
 ## Prerequisites
 
-* Kubectl : client (1.17), server (1.17)
-* Helm 2.16.1
-* Vagrant 2.2.7
-* VirtualBox 6.1
-* Ansible 2.5.1
+- Kubectl: client (1.17), server (1.17)
+- Helm: 2.16.1
+- Vagrant: 2.2.7
+- VirtualBox: 6.1
+- Ansible: 2.5.1
+- sshpass: 1.06 (apt install)
 
-* Ubuntu: sshpass
+## Helm: Install the version 2 (not 3)
 
 ```sh
 # Helm 2
-curl -L https://git.io/get_helm.sh | bash
+$ curl -L https://git.io/get_helm.sh | bash
 ```
 
-## Kubernetes Network Overview
+Or, use the script __get_helm2.sh__ in __./utils/helm/__
+
+## Kubernetes: Network Overview
 
 ![Overview](./ansible-kubernetes-vagrant-tutorial-Overview.png)
 
-## Running
+## Vagrant: Create master and nodes
 
 ```sh
-# Mount the VMs
-$ vagrant up
-
 # Create the configuration directory
 $ mkdir -p ~/.kube
-
+# Mount the VMs
+$ vagrant up
 # Find the SSH port of the k8s-m-1 server
 $ vagrant port k8s-m-1
-
 # Copy the file using scp (ssh password is vagrant)
-$ scp -P 2222 vagrant@127.0.0.1:/home/vagrant/.kube/config ~/.kube/config
+$ sshpass -p 'vagrant' scp -P 2222 vagrant@127.0.0.1:/home/vagrant/.kube/config ~/.kube/config
 ```
-vagrant@127.0.0.1's password: vagrant
 
-## Kubernetes Dashboard
-
-* https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+## Kubernetes: Installing Tiller
 
 ```sh
-# Deploy
-$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
-$ kubectl apply -f kubernetes/dashboard/deploy.yaml
-
-# Run the dashboard
-$ ./kubernetes/dashboard/run.sh
+$ kubectl create serviceaccount --namespace kube-system tiller
+$ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+$ kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+$ helm init --service-account tiller --upgrade
 ```
 
-## Kubernets Nginx Ingress
+## Kubernetes: SSL certificates
 
-* http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
+https://kubernetes.io/docs/concepts/cluster-administration/certificates/
 
-# Install Nginx Ingress
-$ helm install --name nginx-ingress --values kubernetes/nginx-ingress/values.yaml stable/nginx-ingress
+> Important: MASTER_IP=192.168.50.11
+> Important: MASTER_CLUSTER_IP=10.96.0.1
+
+## Helm: Install "Kubernetes Dashboard"
+
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+```sh
+$ helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --values kubernetes/values-kubernetes-dashboard.yaml
+```
+
+## Kubernetes Nginx Ingress
+
+http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
+
+```sh
+$ helm install kubernetes/nginx-ingress --name nginx-ingress --values kubernetes/values-nginx-ingress.yaml
 ```
 
 ## Copyrights
 
 * https://www.itwonderlab.com/ansible-kubernetes-vagrant-tutorial
-* https://www.itwonderlab.com/installing-istio-in-kubernetes-under-virtualbox
 * https://github.com/ITWonderLab/ansible-vbox-vagrant-kubernetes
