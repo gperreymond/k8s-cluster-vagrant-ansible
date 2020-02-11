@@ -67,5 +67,7 @@ $ helm install kubernetes/nginx-ingress --name nginx-ingress --values kubernetes
 
 ## Copyrights
 
-* https://www.itwonderlab.com/ansible-kubernetes-vagrant-tutorial
-* https://github.com/ITWonderLab/ansible-vbox-vagrant-kubernetes
+- https://www.itwonderlab.com/ansible-kubernetes-vagrant-tutorial
+- https://github.com/ITWonderLab/ansible-vbox-vagrant-kubernetes
+- https://kubernetes.github.io/ingress-nginx/deploy/baremetal/
+- https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
