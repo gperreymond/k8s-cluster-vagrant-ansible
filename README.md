@@ -44,14 +44,11 @@ $ helm init --service-account tiller --upgrade
 
 ## Kubernetes: SSL certificates
 
-https://kubernetes.io/docs/concepts/cluster-administration/certificates/
-
-> Important: MASTER_IP=192.168.50.11
-> Important: MASTER_CLUSTER_IP=10.96.0.1
+- https://kubernetes.io/docs/concepts/cluster-administration/certificates/
 
 ## Helm: Install "Kubernetes Dashboard"
 
-https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+- https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 ```sh
 $ helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --values kubernetes/values-kubernetes-dashboard.yaml
@@ -59,15 +56,19 @@ $ helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --val
 
 ## Kubernetes Nginx Ingress
 
-http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
+- https://www.dadall.info/article663/acceder-cluster-k8s-exterieur
+- https://kubernetes.github.io/ingress-nginx/deploy/baremetal/
+- http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
+- https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
 
 ```sh
-$ helm install kubernetes/nginx-ingress --name nginx-ingress --values kubernetes/values-nginx-ingress.yaml
+$ kubectl apply -f kubernetes/metallb-config.yaml
+$ helm upgrade metallb --install kubernetes/metallb --values kubernetes/values-metallb.yaml
+$ helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/values-nginx-ingress.yaml
 ```
 
 ## Copyrights
 
+- https://www.dadall.info/article658/preparer-virtualbox-pour-kubernetes
 - https://www.itwonderlab.com/ansible-kubernetes-vagrant-tutorial
 - https://github.com/ITWonderLab/ansible-vbox-vagrant-kubernetes
-- https://kubernetes.github.io/ingress-nginx/deploy/baremetal/
-- https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/

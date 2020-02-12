@@ -23,7 +23,9 @@ sleep 1m # sleep until started (todo)
 helm init --service-account tiller --upgrade
 
 # Helm: Install "Nginx Ingress"
-helm install kubernetes/nginx-ingress --name nginx-ingress --values kubernetes/values-nginx-ingress.yaml
+kubectl apply -f kubernetes/metallb-config.yaml
+helm upgrade metallb --install kubernetes/metallb --values kubernetes/metallb-values.yaml
+helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
 
 # Helm: Install "Kubernetes Dashboard"
 # helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --values kubernetes/values-kubernetes-dashboard.yaml
