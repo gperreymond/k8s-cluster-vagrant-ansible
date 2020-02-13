@@ -26,4 +26,4 @@ helm init --service-account tiller --upgrade
 helm upgrade metallb --namespace metallb-system --install kubernetes/metallb --values kubernetes/metallb-values.yaml
 
 # Helm: Install "Nginx Ingress"
-helm upgrade nginx-ingress --namespace nginx-system --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
+helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
