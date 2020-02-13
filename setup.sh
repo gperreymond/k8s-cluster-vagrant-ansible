@@ -22,10 +22,11 @@ kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"templat
 sleep 1m # sleep until started (todo)
 helm init --service-account tiller --upgrade
 
+# Helm: Install "Metal Load Balancer"
+helm upgrade metallb --namespace metallb-system --install kubernetes/metallb --values kubernetes/metallb-values.yaml
+
 # Helm: Install "Nginx Ingress"
-kubectl apply -f kubernetes/metallb-config.yaml
-helm upgrade metallb --install kubernetes/metallb --values kubernetes/metallb-values.yaml
-helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
+helm upgrade nginx-ingress --namespace nginx-system --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
 
 # Helm: Install "Kubernetes Dashboard"
 # helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --values kubernetes/values-kubernetes-dashboard.yaml

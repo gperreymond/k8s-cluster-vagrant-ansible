@@ -36,9 +36,13 @@ $ sshpass -p 'vagrant' scp -P 2222 vagrant@127.0.0.1:/home/vagrant/.kube/config 
 ## Kubernetes: Installing Tiller
 
 ```sh
+$ helm init
 $ kubectl create serviceaccount --namespace kube-system tiller
+$ sleep 1m # sleep until started (todo)
 $ kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+$ sleep 1m # sleep until started (todo)
 $ kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+$ sleep 1m # sleep until started (todo)
 $ helm init --service-account tiller --upgrade
 ```
 
@@ -50,21 +54,18 @@ $ helm init --service-account tiller --upgrade
 
 - https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
+## Helm: Install "Metal Load Balancer"
+
+- https://metallb.universe.tf/configuration/calico/
+
 ```sh
-$ helm install kubernetes/kubernetes-dashboard --name kubernetes-dashboard --values kubernetes/values-kubernetes-dashboard.yaml
+$ helm upgrade metallb --namespace metallb-system --install kubernetes/metallb --values kubernetes/metallb-values.yaml
 ```
 
-## Kubernetes Nginx Ingress
-
-- https://www.dadall.info/article663/acceder-cluster-k8s-exterieur
-- https://kubernetes.github.io/ingress-nginx/deploy/baremetal/
-- http://dockerlabs.collabnix.com/kubernetes/beginners/Installing-Nginx-Ingress-controller.html
-- https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
+## Helm: Install "Nginx Ingress"
 
 ```sh
-$ kubectl apply -f kubernetes/metallb-config.yaml
-$ helm upgrade metallb --install kubernetes/metallb --values kubernetes/values-metallb.yaml
-$ helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/values-nginx-ingress.yaml
+$ helm upgrade nginx-ingress --namespace nginx-system --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
 ```
 
 ## Copyrights
