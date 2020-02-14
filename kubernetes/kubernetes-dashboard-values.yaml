@@ -1,0 +1,7 @@
+ingress:
+  enabled: true
+  hosts:
+    - kubernetes-dashboard.docker.localhost
+
+rbac:
+  create: true

@@ -64,8 +64,11 @@ $ helm upgrade metallb --namespace metallb-system --install kubernetes/metallb -
 
 ## Helm: Install "Nginx Ingress"
 
+- https://kubernetes.github.io/ingress-nginx/
+- https://kubernetes.io/fr/docs/concepts/services-networking/ingress/
+
 ```sh
-$ helm upgrade nginx-ingress --namespace nginx-system --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
+$ helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
 ```
 
 ## Copyrights

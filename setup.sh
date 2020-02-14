@@ -27,3 +27,6 @@ helm upgrade metallb --namespace metallb-system --install kubernetes/metallb --v
 
 # Helm: Install "Nginx Ingress"
 helm upgrade nginx-ingress --install kubernetes/nginx-ingress --values kubernetes/nginx-ingress-values.yaml
+
+# Helm: Install "Kubernetes Dashboard"
+helm upgrade dashboard --namespace kube-system --install kubernetes/kubernetes-dashboard --values kubernetes/kubernetes-dashboard-values.yaml
