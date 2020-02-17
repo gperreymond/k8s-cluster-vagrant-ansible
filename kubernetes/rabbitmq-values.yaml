@@ -1,0 +1,11 @@
+rbacEnabled: true
+
+rabbitmq:
+  user: infra
+  existingPasswordSecret: infra
+  existingErlangSecret: infra
+
+persistence:
+  enabled: true
+  storageClass: k8s-local-storage
+  accessMode: ReadWriteOnce
